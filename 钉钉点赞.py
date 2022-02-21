@@ -1,5 +1,6 @@
 import requests
 import time
+import sys
 
 ### 依赖
 # requests
@@ -20,6 +21,7 @@ while True:
         re = requests.get(f'https://lv.dingtalk.com/interaction/createLike?uuid={uuid}&count=100')
     except KeyboardInterrupt:
         print(f'done {c}      ',end='\n')
+        sys.exit()
     if 'success' in re.text:
         c += 1
         print(f'success*{c}',end='\r')
