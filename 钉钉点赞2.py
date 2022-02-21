@@ -1,0 +1,38 @@
+import requests
+import time
+import sys
+
+### 依赖
+# requests
+
+### 如何获取uuid
+## 对于 Android 设备
+## /storage/emulated/0/Android/data/com.alibaba.android.rimet/files/logs/trace/一串数字/live/最新的.log
+## 搜索至最后一个 uuid= 到分号之前的一串就是uuid
+## 对于 Windows 设备
+## 不知道欸
+
+
+uuid = input('uuid:')
+likes = int(input('likes:'))
+c = 0
+
+for _ in range(likes//100):
+    try:
+        re = requests.get(f'https://lv.dingtalk.com/interaction/createLike?uuid={uuid}&count=100')
+    except KeyboardInterrupt:
+        print(f'done {c}      ',end='\n')
+        sys.exit()
+    if 'success' in re.text:
+        c += 100
+        print(f'success*{c}',end='\r')
+    else:
+        print('\nerror')
+        sys.exit()
+    time.sleep(0.1)
+
+
+re = requests.get(f'https://lv.dingtalk.com/interaction/createLike?uuid={uuid}&count={likes%100}')
+if 'success' in re.text:
+    c += likes%100
+    print(f'success*{c}',end='\r')
