@@ -41,3 +41,16 @@ def render_image(console: Console, image: Image.Image, texture: str = '▄') -> 
             text.append(texture, style=Style(color=color, bgcolor=bg_color))
         text.append('\n')
     return text
+
+
+"""
+example:
+
+console = Console()
+
+img = Image.open(xxxx)
+
+text = render_image(console, img)
+
+console.print(text)
+"""
